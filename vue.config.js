@@ -1,20 +1,12 @@
-const path = require('path')
+const path = require('path');
 
 function resolve(dir) {
-  return path.join(__dirname, dir)
+  return path.join(__dirname, dir);
 }
 
 module.exports = {
-  /**
-   * 子路径部署核心
-   */
+  // ⭐ 子路径部署前缀
   publicPath: '/subconvert/',
-
-  /**
-   * 构建输出
-   */
-  outputDir: 'dist',
-  assetsDir: '',
 
   css: {
     loaderOptions: {
@@ -25,11 +17,11 @@ module.exports = {
   },
 
   chainWebpack: config => {
-    // 保留原 svg 规则
+    // svg-sprite-loader 保留原有逻辑
     config.module
       .rule('svg')
       .exclude.add(resolve('src/icons'))
-      .end()
+      .end();
 
     config.module
       .rule('icons')
@@ -38,9 +30,10 @@ module.exports = {
       .end()
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')
-      .options({
-        symbolId: 'icon-[name]'
-      })
-      .end()
-  }
-}
+      .options({ symbolId: 'icon-[name]' })
+      .end();
+  },
+
+  // 默认 outputDir（dist）就够用，无需改动
+  outputDir: path.resolve(__dirname, 'dist')
+};
