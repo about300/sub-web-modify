@@ -5,6 +5,17 @@ function resolve(dir) {
 }
 
 module.exports = {
+  /**
+   * 子路径部署核心
+   */
+  publicPath: '/subconvert/',
+
+  /**
+   * 构建输出
+   */
+  outputDir: 'dist',
+  assetsDir: '',
+
   css: {
     loaderOptions: {
       less: {
@@ -14,11 +25,12 @@ module.exports = {
   },
 
   chainWebpack: config => {
-    // set svg-sprite-loader
+    // 保留原 svg 规则
     config.module
       .rule('svg')
       .exclude.add(resolve('src/icons'))
       .end()
+
     config.module
       .rule('icons')
       .test(/\.svg$/)
@@ -31,4 +43,4 @@ module.exports = {
       })
       .end()
   }
-};
+}

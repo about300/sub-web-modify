@@ -13,7 +13,13 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
+
+  /**
+   * ⭐ 关键：明确子路径
+   * 不再依赖 env，避免历史污染
+   */
+  base: "/subconvert/",
+
   routes
 });
 
